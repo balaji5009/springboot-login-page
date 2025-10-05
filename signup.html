@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Signup</h2>
+    <form id="signupForm">
+      <input type="text" placeholder="Username" id="suUsername" required><br>
+      <input type="email" placeholder="Email" id="suEmail" required><br>
+      <input type="password" placeholder="Password" id="suPassword" required><br>
+      <button type="submit">Signup</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          username: document.getElementById("suUsername").value,
+          email: document.getElementById("suEmail").value,
+          password: document.getElementById("suPassword").value
+        })
+      });
+      alert(await res.text());
+    };
+  </script>
+</body>
+</html>
